@@ -19,6 +19,10 @@ var singletonLogger = &MyLogger{
 	Logger: logrus.New(),
 }
 
+func WithFields(fields logrus.Fields) {
+	singletonLogger.WithFields(fields)
+}
+
 // Logger return singleton logger
 func Logger() *MyLogger {
 	return singletonLogger

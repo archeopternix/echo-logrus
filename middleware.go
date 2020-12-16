@@ -6,7 +6,8 @@ import (
 	"time"
 
 	"github.com/labstack/echo/v4"
-	"github.com/neko-neko/echo-logrus/v2/log"
+	log "github.com/neko-neko/echo-logrus/v2/log"
+	logrus "github.com/sirupsen/logrus"
 )
 
 // Logger returns a middleware that logs HTTP requests.
@@ -31,7 +32,13 @@ func Logger() echo.MiddlewareFunc {
 			if reqSize == "" {
 				reqSize = "0"
 			}
-
+			log.WithFields(logrus.Fields{
+				"status":   res.Status,
+				"method":   req.Method,
+				"id":       id,
+				"realip":   c.RealIP(),
+				"duration": stop.Sub(start).String(),
+			})
 			log.Infof("%s %s [%v] %s %-7s %s %3d %s %s %13v %s %s",
 				id,
 				c.RealIP(),
