@@ -347,3 +347,7 @@ func (l *MyLogger) Panicj(j log.JSON) {
 	}
 	l.Logger.Panicln(string(b))
 }
+
+func (l *MyLogger) WithFields(fields logrus.Fields) {
+	l.Logger.WithFields(fields).Info("No Info")
+}

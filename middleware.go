@@ -2,6 +2,7 @@
 package middleware
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 
@@ -32,6 +33,7 @@ func Logger() echo.MiddlewareFunc {
 			if reqSize == "" {
 				reqSize = "0"
 			}
+			fmt.Println("STEP")
 			log.WithFields(logrus.Fields{
 				"status":   res.Status,
 				"method":   req.Method,
@@ -39,7 +41,7 @@ func Logger() echo.MiddlewareFunc {
 				"realip":   c.RealIP(),
 				"duration": stop.Sub(start).String(),
 			})
-			log.Infof("%s %s [%v] %s %-7s %s %3d %s %s %13v %s %s",
+			log.Infof("*** %s %s [%v] %s %-7s %s %3d %s %s %13v %s %s",
 				id,
 				c.RealIP(),
 				stop.Format(time.RFC3339),
