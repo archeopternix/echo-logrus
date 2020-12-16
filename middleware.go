@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo"
 	log "github.com/neko-neko/echo-logrus/v2/log"
 	logrus "github.com/sirupsen/logrus"
 )
