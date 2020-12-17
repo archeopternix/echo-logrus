@@ -2,11 +2,10 @@
 package middleware
 
 import (
-	"fmt"
 	"strconv"
 	"time"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	log "github.com/neko-neko/echo-logrus/v2/log"
 	logrus "github.com/sirupsen/logrus"
 )
@@ -33,28 +32,18 @@ func Logger() echo.MiddlewareFunc {
 			if reqSize == "" {
 				reqSize = "0"
 			}
-			fmt.Println("STEP")
-			log.WithFields(logrus.Fields{
-				"status":   res.Status,
-				"method":   req.Method,
-				"id":       id,
-				"realip":   c.RealIP(),
-				"duration": stop.Sub(start).String(),
+			log.InfoWithFields(logrus.Fields{
+				"status":    res.Status,
+				"method":    req.Method,
+				"id":        id,
+				"realip":    c.RealIP(),
+				"duration":  stop.Sub(start).String(),
+				"size":      strconv.FormatInt(res.Size, 10),
+				"referrer":  req.Referer(),
+				"host":      req.Host,
+				"request":   req.RequestURI,
+				"useragent": req.UserAgent(),
 			})
-			log.Infof("*** %s %s [%v] %s %-7s %s %3d %s %s %13v %s %s",
-				id,
-				c.RealIP(),
-				stop.Format(time.RFC3339),
-				req.Host,
-				req.Method,
-				req.RequestURI,
-				res.Status,
-				reqSize,
-				strconv.FormatInt(res.Size, 10),
-				stop.Sub(start).String(),
-				req.Referer(),
-				req.UserAgent(),
-			)
 			return err
 		}
 	}

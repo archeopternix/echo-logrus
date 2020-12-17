@@ -19,8 +19,8 @@ var singletonLogger = &MyLogger{
 	Logger: logrus.New(),
 }
 
-func WithFields(fields logrus.Fields) {
-	singletonLogger.WithFields(fields)
+func InfoWithFields(fields logrus.Fields) {
+	singletonLogger.InfoWithFields(fields)
 }
 
 // Logger return singleton logger
@@ -348,6 +348,6 @@ func (l *MyLogger) Panicj(j log.JSON) {
 	l.Logger.Panicln(string(b))
 }
 
-func (l *MyLogger) WithFields(fields logrus.Fields) {
-	l.Logger.WithFields(fields).Info("No Info")
+func (l *MyLogger) InfoWithFields(fields logrus.Fields) {
+	l.Logger.WithFields(fields).Info("")
 }
